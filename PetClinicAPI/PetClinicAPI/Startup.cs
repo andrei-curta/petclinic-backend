@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PetClinicAPI.Middleware;
 
 namespace PetClinicAPI
 {
@@ -43,6 +44,8 @@ namespace PetClinicAPI
 
             app.UseAuthorization();
 
+            app.UseMiddleware<CheckApiKeyMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -50,6 +53,7 @@ namespace PetClinicAPI
 
             app.UseSwagger();
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API"); });
+
         }
     }
 }
