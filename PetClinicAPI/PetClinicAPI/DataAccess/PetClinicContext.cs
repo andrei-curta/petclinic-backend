@@ -10,6 +10,10 @@ namespace PetClinicAPI.DataAccess
     public class PetClinicContext : DbContext
     {
         public PetClinicContext(DbContextOptions options) : base(options) { }
-        public DbSet<Pet> Pets { get; set; }
+        public DbSet<Animal> Animale { get; set; }
+        public DbSet<Medic> Medici { get; set; }
+        public DbSet<Rasa> Rase { get; set; }
+        public DbSet<Specie> Specii { get; set; }
+        public DbSet<Utilizator> Utilizatori { get; set; }
     }
 }
