@@ -48,7 +48,7 @@ namespace PetClinicAPI
 
             app.UseAuthorization();
 
-            app.UseMiddleware<CheckApiKeyMiddleware>();
+            // app.UseMiddleware<CheckApiKeyMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
