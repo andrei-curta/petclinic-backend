@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PetClinicAPI.DataAccess;
 using PetClinicAPI.Middleware;
 
 namespace PetClinicAPI
@@ -28,6 +30,8 @@ namespace PetClinicAPI
         {
             services.AddControllers();
             services.AddSwaggerGen();
+            services.AddDbContext<PetClinicContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("PetShopDB")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,5 +59,7 @@ namespace PetClinicAPI
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API"); });
 
         }
+
+
     }
 }
