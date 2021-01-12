@@ -15,5 +15,9 @@ namespace PetClinicAPI.DataAccess
         public DbSet<Rasa> Rase { get; set; }
         public DbSet<Specie> Specii { get; set; }
         public DbSet<Utilizator> Utilizatori { get; set; }
+        public DbSet<Programare> Programari { get; set; }
+        public DbSet<Serviciu> Servicii { get; set; }
+        public DbSet<StatusProgramare> StatusuriProgramari { get; set; }
+
     }
 }

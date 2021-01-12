@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetClinicAPI.DataAccess;
 
 namespace PetClinicAPI.Migrations
 {
     [DbContext(typeof(PetClinicContext))]
-    partial class PetClinicContextModelSnapshot : ModelSnapshot
+    [Migration("20210112200329_adaugatTabele2")]
+    partial class adaugatTabele2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,40 +66,6 @@ namespace PetClinicAPI.Migrations
                     b.ToTable("Medici");
                 });
 
-            modelBuilder.Entity("PetClinicAPI.Models.Programare", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<long?>("AnimalId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("DataConsultatie")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("MedicId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Observatii")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<long?>("StatusProgramareId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnimalId");
-
-                    b.HasIndex("MedicId");
-
-                    b.HasIndex("StatusProgramareId");
-
-                    b.ToTable("Programari");
-                });
-
             modelBuilder.Entity("PetClinicAPI.Models.Rasa", b =>
                 {
                     b.Property<long>("Id")
@@ -119,27 +87,6 @@ namespace PetClinicAPI.Migrations
                     b.ToTable("Rase");
                 });
 
-            modelBuilder.Entity("PetClinicAPI.Models.Serviciu", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Nume")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.Property<long?>("ProgramareId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProgramareId");
-
-                    b.ToTable("Servicii");
-                });
-
             modelBuilder.Entity("PetClinicAPI.Models.Specie", b =>
                 {
                     b.Property<long>("Id")
@@ -154,22 +101,6 @@ namespace PetClinicAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specii");
-                });
-
-            modelBuilder.Entity("PetClinicAPI.Models.StatusProgramare", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("Nume")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("StatusuriProgramari");
                 });
 
             modelBuilder.Entity("PetClinicAPI.Models.Utilizator", b =>
@@ -205,27 +136,6 @@ namespace PetClinicAPI.Migrations
                     b.Navigation("Stapan");
                 });
 
-            modelBuilder.Entity("PetClinicAPI.Models.Programare", b =>
-                {
-                    b.HasOne("PetClinicAPI.Models.Animal", "Animal")
-                        .WithMany()
-                        .HasForeignKey("AnimalId");
-
-                    b.HasOne("PetClinicAPI.Models.Medic", "Medic")
-                        .WithMany()
-                        .HasForeignKey("MedicId");
-
-                    b.HasOne("PetClinicAPI.Models.StatusProgramare", "StatusProgramare")
-                        .WithMany()
-                        .HasForeignKey("StatusProgramareId");
-
-                    b.Navigation("Animal");
-
-                    b.Navigation("Medic");
-
-                    b.Navigation("StatusProgramare");
-                });
-
             modelBuilder.Entity("PetClinicAPI.Models.Rasa", b =>
                 {
                     b.HasOne("PetClinicAPI.Models.Specie", "Specie")
@@ -233,18 +143,6 @@ namespace PetClinicAPI.Migrations
                         .HasForeignKey("SpecieId");
 
                     b.Navigation("Specie");
-                });
-
-            modelBuilder.Entity("PetClinicAPI.Models.Serviciu", b =>
-                {
-                    b.HasOne("PetClinicAPI.Models.Programare", null)
-                        .WithMany("Servicii")
-                        .HasForeignKey("ProgramareId");
-                });
-
-            modelBuilder.Entity("PetClinicAPI.Models.Programare", b =>
-                {
-                    b.Navigation("Servicii");
                 });
 
             modelBuilder.Entity("PetClinicAPI.Models.Specie", b =>
