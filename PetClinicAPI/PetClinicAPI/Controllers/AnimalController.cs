@@ -10,6 +10,7 @@ using PetClinicAPI.Models;
 
 namespace PetClinicAPI.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class AnimalController : ControllerBase
