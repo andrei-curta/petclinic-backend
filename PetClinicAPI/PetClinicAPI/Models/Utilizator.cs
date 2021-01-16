@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace PetClinicAPI.Models
 {
-    public class Utilizator
+    public class Utilizator :IdentityUser
     {
         public long Id { get; set; }
 

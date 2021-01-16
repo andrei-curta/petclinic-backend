@@ -14,6 +14,7 @@ namespace PetClinicAPI.Models
         [MaxLength(250)]
         public string Nume { get; set; }
 
+        [Column(TypeName = "decimal(10, 2)")]
         public decimal Pret { get; set; }
     }
 }

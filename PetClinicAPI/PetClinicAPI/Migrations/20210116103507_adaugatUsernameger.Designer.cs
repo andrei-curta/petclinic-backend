@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetClinicAPI.DataAccess;
 
 namespace PetClinicAPI.Migrations
 {
     [DbContext(typeof(PetClinicContext))]
-    partial class PetClinicContextModelSnapshot : ModelSnapshot
+    [Migration("20210116103507_adaugatUsernameger")]
+    partial class adaugatUsernameger
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,7 +97,7 @@ namespace PetClinicAPI.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<decimal>("Pret")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -171,7 +173,7 @@ namespace PetClinicAPI.Migrations
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<decimal>("Pret")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long?>("ProgramareId")
                         .HasColumnType("bigint");
