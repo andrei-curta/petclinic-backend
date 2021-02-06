@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using PetClinicAPI.DataAccess;
 using PetClinicAPI.Models;
@@ -20,11 +21,13 @@ namespace PetClinicAPI.Controllers
     {
         private readonly PetClinicContext _context;
         private readonly UserManager<Utilizator> _userManager;
+        public IConfiguration _configuration { get; }
 
-        public AuthController(PetClinicContext context, UserManager<Utilizator> userManager)
+        public AuthController(PetClinicContext context, UserManager<Utilizator> userManager, IConfiguration configuration)
         {
             _context = context;
             _userManager = userManager;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -93,8 +96,7 @@ namespace PetClinicAPI.Controllers
                 new JwtHeader(
                     new SigningCredentials(
                         new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(
-                                "this is my custom Secret key for authnetication")), //TODO: schimbat secret key
+                            Encoding.UTF8.GetBytes(_configuration["JWT:Secret"])), //TODO: schimbat secret key
                         SecurityAlgorithms.HmacSha256)),
                 new JwtPayload(claims)
             );
