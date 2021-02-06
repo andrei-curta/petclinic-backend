@@ -15,6 +15,7 @@ namespace PetClinicAPI.Models
 
         public Utilizator Stapan { get; set; }
 
+        public Rasa Rasa { get; set; }
 
     }
 }

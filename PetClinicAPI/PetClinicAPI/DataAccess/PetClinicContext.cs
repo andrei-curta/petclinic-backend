@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using PetClinicAPI.Models;
 
 namespace PetClinicAPI.DataAccess
@@ -20,5 +21,16 @@ namespace PetClinicAPI.DataAccess
         public DbSet<StatusProgramare> StatusuriProgramari { get; set; }
         public DbSet<Produs> Produse { get; set; }
         public DbSet<CategorieProdus> CategoriiProduse { get; set; }
+    }
+
+    public class PetClinicFactory : IDesignTimeDbContextFactory<PetClinicContext>
+    {
+        public PetClinicContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<PetClinicContext>();
+            optionsBuilder.UseSqlServer("Server=tcp:andreicurta.database.windows.net,1433;Initial Catalog=petshop;Persist Security Info=False;User ID=andrei.curta;Password=ParolaAzure1q2w3e;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+
+            return new PetClinicContext(optionsBuilder.Options);
+        }
     }
 }
