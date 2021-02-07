@@ -10,8 +10,8 @@ using PetClinicAPI.DataAccess;
 namespace PetClinicAPI.Migrations
 {
     [DbContext(typeof(PetClinicContext))]
-    [Migration("20210207182547_idUser")]
-    partial class idUser
+    [Migration("20210207191621_isAdmin")]
+    partial class isAdmin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -288,6 +288,9 @@ namespace PetClinicAPI.Migrations
 
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("eAdmin")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

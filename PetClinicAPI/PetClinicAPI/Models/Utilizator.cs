@@ -22,5 +22,7 @@ namespace PetClinicAPI.Models
 
         [MaxLength(13)]
         public string CNP { get; set; }
+
+        public bool eAdmin { get; set; }
     }
 }

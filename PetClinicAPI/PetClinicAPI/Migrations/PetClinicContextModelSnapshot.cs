@@ -287,6 +287,9 @@ namespace PetClinicAPI.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("eAdmin")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("Utilizatori");
