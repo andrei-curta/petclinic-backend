@@ -25,7 +25,16 @@ namespace PetClinicAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Specie>>> GetSpecii()
         {
-            return await _context.Specii.ToListAsync();
+            var specii = await _context.Specii.Include("Rase").ToListAsync();
+            foreach (var specie in specii)
+            {
+                foreach (var rasa in specie.Rase)
+                {
+                    rasa.Specie = null;
+                }
+            }
+
+            return specii;
         }
 
         // GET: api/Specie/5
