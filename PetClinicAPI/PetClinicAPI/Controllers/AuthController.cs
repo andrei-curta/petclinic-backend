@@ -61,7 +61,8 @@ namespace PetClinicAPI.Controllers
         {
             if (await IsValidUsernameAndPassword(login.Username, login.Password))
             {
-                return new ObjectResult( GenerateToken(login.Username));
+                var utilizator = _context.Utilizatori.First(u => u.UserName == login.Username);
+                return new ObjectResult(utilizator);
             }
             else
             {
