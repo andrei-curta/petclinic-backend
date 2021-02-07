@@ -88,10 +88,9 @@ namespace PetClinicAPI.Controllers
             animal.StapanId = animalDto.StapanId;
 
             _context.Animale.Add(animal);
-            try
-            {
+      
                 await _context.SaveChangesAsync();
-            }
+            
 
 
             return CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
