@@ -30,7 +30,7 @@ namespace PetClinicAPI.Controllers
 
         // GET: api/Utilizator/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Utilizator>> GetUtilizator(long id)
+        public async Task<ActionResult<Utilizator>> GetUtilizator(string id)
         {
             var utilizator = await _context.Utilizatori.FindAsync(id);
 
@@ -46,7 +46,7 @@ namespace PetClinicAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUtilizator(long id, Utilizator utilizator)
+        public async Task<IActionResult> PutUtilizator(string id, Utilizator utilizator)
         {
             if (id != utilizator.Id)
             {
@@ -102,7 +102,7 @@ namespace PetClinicAPI.Controllers
             return utilizator;
         }
 
-        private bool UtilizatorExists(long id)
+        private bool UtilizatorExists(string id)
         {
             return _context.Utilizatori.Any(e => e.Id == id);
         }

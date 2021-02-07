@@ -10,7 +10,7 @@ namespace PetClinicAPI.Models
 {
     public class Utilizator :IdentityUser
     {
-        public long Id { get; set; }
+        public long IdUtilizator { get; set; }
 
         [MaxLength(250)]
         [NotNull]
