@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetClinicAPI.DataAccess;
 using PetClinicAPI.Models;
+using PetClinicAPI.Models.DTO;
 
 namespace PetClinicAPI.Controllers
 {
@@ -78,12 +79,28 @@ namespace PetClinicAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Programare>> PostProgramare(Programare programare)
+        public async Task<ActionResult<Programare>> PostProgramare(ProgramarePost_DTO programareDto)
         {
-            _context.Programari.Add(programare);
-            await _context.SaveChangesAsync();
+            Programare programare = new Programare();
+            programare.AnimalId = programareDto.AnimalId;
+            programare.MedicId = programareDto.MedicId;
+            programare.DataConsultatie = programareDto.DataConsultatie;
+            programare.Servicii =
+                await _context.Servicii.Where(s => programareDto.ServiciiId.Contains(s.Id)).ToListAsync();
 
-            return CreatedAtAction("GetProgramare", new { id = programare.Id }, programare);
+            _context.Programari.Add(programare);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+
+            return CreatedAtAction("GetProgramare", new {id = programare.Id}, programare);
         }
 
         // DELETE: api/Programare/5
