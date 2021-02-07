@@ -24,7 +24,6 @@ namespace PetClinicAPI.Middleware
             try
             {
                 await _next(httpContext);
-                _logger.LogInformation("asdasdasdasdadsa");
             }
             catch (Exception e)
             {

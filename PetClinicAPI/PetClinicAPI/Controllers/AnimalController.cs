@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetClinicAPI.DataAccess;
 using PetClinicAPI.Models;
+using PetClinicAPI.Models.DTO;
 
 namespace PetClinicAPI.Controllers
 {
@@ -79,10 +80,22 @@ namespace PetClinicAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Animal>> PostAnimal(Animal animal)
+        public async Task<ActionResult<Animal>> PostAnimal(AnimalPost_DTO animalDto)
         {
+            Animal animal = new Animal();
+            animal.Nume = animalDto.Nume;
+            animal.RasaId = animalDto.RasaId;
+            animal.StapanId = animalDto.StapanId;
+
             _context.Animale.Add(animal);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
 
             return CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
         }
