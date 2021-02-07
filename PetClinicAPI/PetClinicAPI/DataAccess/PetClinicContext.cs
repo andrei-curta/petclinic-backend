@@ -21,6 +21,8 @@ namespace PetClinicAPI.DataAccess
         public DbSet<StatusProgramare> StatusuriProgramari { get; set; }
         public DbSet<Produs> Produse { get; set; }
         public DbSet<CategorieProdus> CategoriiProduse { get; set; }
+        public DbSet<Comanda> Comenzi { get; set; }
+
     }
 
     public class PetClinicFactory : IDesignTimeDbContextFactory<PetClinicContext>
