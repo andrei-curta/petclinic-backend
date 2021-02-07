@@ -92,10 +92,7 @@ namespace PetClinicAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
+
 
             return CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
         }
