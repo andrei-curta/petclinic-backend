@@ -29,6 +29,12 @@ namespace PetClinicAPI.Controllers
             return await _context.Produse.ToListAsync();
         }
 
+        [HttpGet("categorieId={categorieId}")]
+        public async Task<ActionResult<IEnumerable<Produs>>> GetProduseByRasaId(long categorieId)
+        {
+            return await _context.Produse.Where(p => p.CategorieProdusId == categorieId).ToListAsync();
+        }
+
         // GET: api/Produs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Produs>> GetProdus(long id)
