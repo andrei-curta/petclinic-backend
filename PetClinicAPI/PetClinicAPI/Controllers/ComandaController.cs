@@ -92,8 +92,8 @@ namespace PetClinicAPI.Controllers
         {
             Comanda comanda = new Comanda();
             comanda.Utilizator = await _context.Utilizatori.FindAsync();
-            comanda.Produse =
-                await _context.Produse.Where(s => comandaDto.ProduseId.Contains(s.Id)).ToListAsync();
+            // comanda.ProduseComanda =
+            //     await _context.Produse.Where(s => comandaDto.ProduseId.Contains(s.Id)).ToListAsync();
 
             _context.Comenzi.Add(comanda);
 
