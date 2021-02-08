@@ -9,7 +9,7 @@ namespace PetClinicAPI.Models.DTO
     public class ComandaPost_DTO
     {
         [MinLength(1)]
-        public List<long> ProduseId { get; set; }
+        public List<ProdusComanda_DTO> ProduseComanda { get; set; }
 
         [Required(ErrorMessage = "{0} is mandatory")]
         public string UtilizatorId { get; set; }

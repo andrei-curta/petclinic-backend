@@ -91,9 +91,14 @@ namespace PetClinicAPI.Controllers
         public async Task<ActionResult<Comanda>> PostComanda(ComandaPost_DTO comandaDto)
         {
             Comanda comanda = new Comanda();
-            comanda.Utilizator = await _context.Utilizatori.FindAsync();
-            // comanda.ProduseComanda =
-            //     await _context.Produse.Where(s => comandaDto.ProduseId.Contains(s.Id)).ToListAsync();
+            comanda.Utilizator = await _context.Utilizatori.FindAsync(comandaDto.UtilizatorId);
+            comanda.ProduseComanda = comandaDto.ProduseComanda
+                .Select(c => new ProdusComanda()
+                {
+                    Cantitate = c.Cantitate,
+                    ProdusId = c.ProdusId
+                })
+                .ToList();
 
             _context.Comenzi.Add(comanda);
 
