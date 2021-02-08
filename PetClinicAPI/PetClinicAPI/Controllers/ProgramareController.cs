@@ -26,7 +26,7 @@ namespace PetClinicAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Programare>>> GetProgramari()
         {
-            return await _context.Programari.ToListAsync();
+            return await _context.Programari.Include("Servicii").ToListAsync();
         }
 
         // GET: api/Programare/5

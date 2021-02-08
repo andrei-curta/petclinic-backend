@@ -11,13 +11,12 @@ namespace PetClinicAPI.Models
 
         public ICollection<Produs> Produse { get; set; }
 
-        // public Utilizator Utilizator { get; set; }
-
+        public Utilizator Utilizator { get; set; }
+        public string UtilizatorId { get; set; }
 
         public decimal Total
         {
-            get { return Produse.Sum(p => p.Pret); }
+            get { return Produse?.Sum(p => p.Pret) ?? 0; }
         }
-       
     }
 }

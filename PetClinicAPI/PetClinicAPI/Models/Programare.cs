@@ -23,10 +23,10 @@ namespace PetClinicAPI.Models
         public long? StatusProgramareId { get; set; }
 
         public ICollection<Serviciu> Servicii { get; set; }
-        
+
         public decimal Total
         {
-            get { return Servicii.Sum(p => p.Pret); }
+            get { return Servicii?.Sum(p => p.Pret) ?? 0; }
         }
     }
 }

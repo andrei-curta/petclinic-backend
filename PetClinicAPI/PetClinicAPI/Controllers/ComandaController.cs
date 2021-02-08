@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetClinicAPI.DataAccess;
 using PetClinicAPI.Models;
+using PetClinicAPI.Models.DTO;
 
 namespace PetClinicAPI.Controllers
 {
@@ -25,7 +26,7 @@ namespace PetClinicAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comanda>>> GetComenzi()
         {
-            return await _context.Comenzi.ToListAsync();
+            return await _context.Comenzi.Include("Produse").ToListAsync();
         }
 
         // GET: api/Comanda/5
@@ -78,12 +79,17 @@ namespace PetClinicAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Comanda>> PostComanda(Comanda comanda)
+        public async Task<ActionResult<Comanda>> PostComanda(ComandaPost_DTO comandaDto)
         {
+            Comanda comanda = new Comanda();
+            comanda.UtilizatorId = comandaDto.UtilizatorId;
+            comanda.Produse =
+                await _context.Produse.Where(s => comandaDto.ProduseId.Contains(s.Id)).ToListAsync();
+
             _context.Comenzi.Add(comanda);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComanda", new { id = comanda.Id }, comanda);
+            return CreatedAtAction("GetComanda", new {id = comanda.Id}, comanda);
         }
 
         // DELETE: api/Comanda/5
