@@ -29,6 +29,12 @@ namespace PetClinicAPI.Controllers
             return await _context.Programari.Include("Servicii").ToListAsync();
         }
 
+        [HttpGet("userId={userId}")]
+        public async Task<ActionResult<IEnumerable<Programare>>> GetProgramareByUtilizator(string userId)
+        {
+            return await _context.Programari.Include("Servicii").Where(p => p.Animal.StapanId == userId).ToListAsync();
+        }
+
         // GET: api/Programare/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Programare>> GetProgramare(long id)
