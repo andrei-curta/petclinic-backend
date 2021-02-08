@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetClinicAPI.DataAccess;
 using PetClinicAPI.Models;
+using PetClinicAPI.Models.DTO;
 
 namespace PetClinicAPI.Controllers
 {
@@ -78,12 +79,19 @@ namespace PetClinicAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Produs>> PostProdus(Produs produs)
+        public async Task<ActionResult<Produs>> PostProdus(ProdusPost_DTO produsDto)
         {
+            Produs produs = new Produs();
+            produs.Nume = produsDto.Nume;
+            produs.Pret = produsDto.Pret;
+            produs.CategorieProdusId = produsDto.CategorieProdusId;
+            produs.SpeciiTinta =
+                await _context.Specii.Where(s => produsDto.SpeciiTintaId.Contains(s.Id)).ToListAsync();
+
             _context.Produse.Add(produs);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProdus", new { id = produs.Id }, produs);
+            return CreatedAtAction("GetProdus", new {id = produs.Id}, produs);
         }
 
         // DELETE: api/Produs/5

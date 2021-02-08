@@ -26,7 +26,16 @@ namespace PetClinicAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comanda>>> GetComenzi()
         {
-            return await _context.Comenzi.Include("Produse").ToListAsync();
+            try
+            {
+                var res = await _context.Comenzi.Include("Produse").ToListAsync();
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+
+            return null;
         }
 
         // GET: api/Comanda/5
@@ -82,11 +91,12 @@ namespace PetClinicAPI.Controllers
         public async Task<ActionResult<Comanda>> PostComanda(ComandaPost_DTO comandaDto)
         {
             Comanda comanda = new Comanda();
-            comanda.UtilizatorId = comandaDto.UtilizatorId;
+            comanda.Utilizator = await _context.Utilizatori.FindAsync();
             comanda.Produse =
                 await _context.Produse.Where(s => comandaDto.ProduseId.Contains(s.Id)).ToListAsync();
 
             _context.Comenzi.Add(comanda);
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetComanda", new {id = comanda.Id}, comanda);

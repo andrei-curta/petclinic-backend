@@ -5,21 +5,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PetClinicAPI.Models
+namespace PetClinicAPI.Models.DTO
 {
-    public class Produs
+    public class ProdusPost_DTO
     {
-        public long Id { get; set; }
-
         [MaxLength(250)]
         public string Nume { get; set; }
 
         [Column(TypeName = "decimal(10, 2)")]
         public decimal Pret { get; set; }
 
-        public ICollection<Specie> SpeciiTinta { get; set; }
-        
-        public CategorieProdus CategorieProdus { get; set; }
+        public List<long> SpeciiTintaId { get; set; }
+
+        [Required]
         public long CategorieProdusId { get; set; }
     }
 }
