@@ -28,5 +28,7 @@ namespace PetClinicAPI.Models
         {
             get { return Servicii?.Sum(p => p.Pret) ?? 0; }
         }
+
+        public bool Anulata => StatusProgramareId == 2;
     }
 }

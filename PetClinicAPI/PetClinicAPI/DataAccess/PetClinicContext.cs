@@ -23,6 +23,13 @@ namespace PetClinicAPI.DataAccess
         public DbSet<CategorieProdus> CategoriiProduse { get; set; }
         public DbSet<Comanda> Comenzi { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<StatusProgramare>()
+                .HasIndex(u => u.Nume)
+                .IsUnique();
+        }
+
     }
 
     public class PetClinicFactory : IDesignTimeDbContextFactory<PetClinicContext>

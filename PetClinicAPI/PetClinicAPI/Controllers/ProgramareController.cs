@@ -32,7 +32,11 @@ namespace PetClinicAPI.Controllers
         [HttpGet("userId={userId}")]
         public async Task<ActionResult<IEnumerable<Programare>>> GetProgramareByUtilizator(string userId)
         {
-            return await _context.Programari.Include("Servicii").Where(p => p.Animal.StapanId == userId).ToListAsync();
+            return await _context.Programari
+                .Include("Servicii")
+                .Where(p => p.Animal.StapanId == userId)
+                .Where(p => p.StatusProgramareId != 2)
+                .ToListAsync();
         }
 
         // GET: api/Programare/5
@@ -113,16 +117,18 @@ namespace PetClinicAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Programare>> DeleteProgramare(long id)
         {
-            var programare = await _context.Programari.FindAsync(id);
-            if (programare == null)
+            if (!ProgramareExists(id))
             {
                 return NotFound();
             }
 
-            _context.Programari.Remove(programare);
+            StatusProgramare statusDeleted = _context.StatusuriProgramari.Find((long) 2);
+
+            _context.Programari.Find(id).StatusProgramare = statusDeleted;
+
             await _context.SaveChangesAsync();
 
-            return programare;
+            return NoContent();
         }
 
         private bool ProgramareExists(long id)
