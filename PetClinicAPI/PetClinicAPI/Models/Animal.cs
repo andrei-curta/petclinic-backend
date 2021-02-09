@@ -20,5 +20,7 @@ namespace PetClinicAPI.Models
         public Rasa Rasa { get; set; }
         public long? RasaId { get; set; }
 
+        public bool Deleted { get; set; }
+
     }
 }

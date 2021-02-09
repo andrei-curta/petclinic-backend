@@ -22,5 +22,7 @@ namespace PetClinicAPI.Models
         [MaxLength(13)]
         [Required]
         public string CNP { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }

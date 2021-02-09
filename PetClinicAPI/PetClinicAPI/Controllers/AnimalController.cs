@@ -11,7 +11,6 @@ using PetClinicAPI.Models.DTO;
 
 namespace PetClinicAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class AnimalController : ControllerBase
@@ -27,7 +26,7 @@ namespace PetClinicAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Animal>>> GetAnimale()
         {
-            return await _context.Animale.ToListAsync();
+            return await _context.Animale.Where(a => a.Deleted == false).ToListAsync();
         }
 
         // GET: api/Animal/5
@@ -44,10 +43,18 @@ namespace PetClinicAPI.Controllers
             return animal;
         }
 
+        /// <summary>
+        /// Returneaza lista de animale in functie de id-ul stapanului
+        /// </summary>
+        /// <param name="stapanId"></param>
+        /// <returns>lista de animale</returns>
         [HttpGet("stapanId={stapanId}")]
         public async Task<ActionResult<IEnumerable<Animal>>> GetAnimalByStapanId(string stapanId)
         {
-            return await _context.Animale.Where(a => a.StapanId == stapanId).ToListAsync();
+            return await _context.Animale
+                .Where(a => a.StapanId == stapanId)
+                .Where(a => a.Deleted == false)
+                .ToListAsync();
         }
 
         // PUT: api/Animal/5
@@ -94,12 +101,11 @@ namespace PetClinicAPI.Controllers
             animal.StapanId = animalDto.StapanId;
 
             _context.Animale.Add(animal);
-      
-                await _context.SaveChangesAsync();
-            
+
+            await _context.SaveChangesAsync();
 
 
-            return CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
+            return CreatedAtAction("GetAnimal", new {id = animal.Id}, animal);
         }
 
         // DELETE: api/Animal/5
@@ -112,7 +118,7 @@ namespace PetClinicAPI.Controllers
                 return NotFound();
             }
 
-            _context.Animale.Remove(animal);
+            animal.Deleted = true;
             await _context.SaveChangesAsync();
 
             return animal;

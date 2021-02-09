@@ -51,6 +51,14 @@ namespace PetClinicAPI.DataAccess
             builder.Entity<Medic>()
                 .Property(p => p.Preume)
                 .IsRequired();
+
+            builder.Entity<Medic>()
+                .Property(p => p.Deleted)
+                .HasDefaultValue(false);
+
+            builder.Entity<Animal>()
+                .Property(p => p.Deleted)
+                .HasDefaultValue(false);
         }
     }
 

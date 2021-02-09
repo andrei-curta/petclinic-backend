@@ -25,7 +25,7 @@ namespace PetClinicAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Medic>>> GetMedici()
         {
-            return await _context.Medici.ToListAsync();
+            return await _context.Medici.Where(m => m.Deleted == false).ToListAsync();
         }
 
         // GET: api/Medic/5
@@ -96,7 +96,7 @@ namespace PetClinicAPI.Controllers
                 return NotFound();
             }
 
-            _context.Medici.Remove(medic);
+            medic.Deleted = true;
             await _context.SaveChangesAsync();
 
             return medic;
