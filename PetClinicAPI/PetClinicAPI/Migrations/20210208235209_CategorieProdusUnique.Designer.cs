@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PetClinicAPI.DataAccess;
 
 namespace PetClinicAPI.Migrations
 {
     [DbContext(typeof(PetClinicContext))]
-    partial class PetClinicContextModelSnapshot : ModelSnapshot
+    [Migration("20210208235209_CategorieProdusUnique")]
+    partial class CategorieProdusUnique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,14 +55,14 @@ namespace PetClinicAPI.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Nume")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Nume")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Nume] IS NOT NULL");
 
                     b.ToTable("CategoriiProduse");
                 });
@@ -93,17 +95,14 @@ namespace PetClinicAPI.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("CNP")
-                        .IsRequired()
                         .HasMaxLength(13)
                         .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Nume")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
                     b.Property<string>("Preume")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
@@ -269,14 +268,14 @@ namespace PetClinicAPI.Migrations
                         .UseIdentityColumn();
 
                     b.Property<string>("Nume")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Nume")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Nume] IS NOT NULL");
 
                     b.ToTable("StatusuriProgramari");
                 });

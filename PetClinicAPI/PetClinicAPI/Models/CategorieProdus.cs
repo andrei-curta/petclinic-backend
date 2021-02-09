@@ -11,6 +11,7 @@ namespace PetClinicAPI.Models
         public long Id { get; set; }
 
         [MaxLength(250)]
+        [Required]
         public string Nume { get; set; }
     }
 }

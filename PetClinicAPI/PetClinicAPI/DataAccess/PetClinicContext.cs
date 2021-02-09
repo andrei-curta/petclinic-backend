@@ -10,7 +10,10 @@ namespace PetClinicAPI.DataAccess
 {
     public class PetClinicContext : DbContext
     {
-        public PetClinicContext(DbContextOptions options) : base(options) { }
+        public PetClinicContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<Animal> Animale { get; set; }
         public DbSet<Medic> Medici { get; set; }
         public DbSet<Rasa> Rase { get; set; }
@@ -28,8 +31,27 @@ namespace PetClinicAPI.DataAccess
             builder.Entity<StatusProgramare>()
                 .HasIndex(u => u.Nume)
                 .IsUnique();
-        }
 
+            builder.Entity<StatusProgramare>()
+                .Property(p => p.Nume)
+                .IsRequired();
+
+            builder.Entity<CategorieProdus>()
+                .HasIndex(u => u.Nume)
+                .IsUnique();
+
+            builder.Entity<CategorieProdus>()
+                .Property(p => p.Nume)
+                .IsRequired();
+
+            builder.Entity<Medic>()
+                .Property(p => p.Nume)
+                .IsRequired();
+
+            builder.Entity<Medic>()
+                .Property(p => p.Preume)
+                .IsRequired();
+        }
     }
 
     public class PetClinicFactory : IDesignTimeDbContextFactory<PetClinicContext>
@@ -37,7 +59,8 @@ namespace PetClinicAPI.DataAccess
         public PetClinicContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<PetClinicContext>();
-            optionsBuilder.UseSqlServer("Server=tcp:andreicurta.database.windows.net,1433;Initial Catalog=petshop;Persist Security Info=False;User ID=andrei.curta;Password=ParolaAzure1q2w3e;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            optionsBuilder.UseSqlServer(
+                "Server=tcp:andreicurta.database.windows.net,1433;Initial Catalog=petshop;Persist Security Info=False;User ID=andrei.curta;Password=ParolaAzure1q2w3e;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
 
             return new PetClinicContext(optionsBuilder.Options);
         }

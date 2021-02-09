@@ -16,10 +16,11 @@ namespace PetClinicAPI.Models
         public string Nume { get; set; }
 
         [MaxLength(250)]
-        [NotNull]
+        [Required]
         public string Preume { get; set; }
 
         [MaxLength(13)]
+        [Required]
         public string CNP { get; set; }
     }
 }
